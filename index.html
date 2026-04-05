@@ -3,95 +3,79 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Local Legends</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Rwandan Legends & Stories</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
   <header>
-    <h1>Local Legends</h1>
-    <p>Stories, myths and mysteries from around you</p>
+    <h1>Rwandan Legends & Stories</h1>
+    <p>Discover fascinating local tales of history, myths, and mysteries!</p>
   </header>
 
+  <div class="filter">
+    <label for="category">Filter by category:</label>
+    <select id="category">
+      <option value="all">All</option>
+      <option value="history">History</option>
+      <option value="myth">Myth</option>
+      <option value="mystery">Mystery</option>
+    </select>
+  </div>
+
   <main>
-    <div class="controls">
-      <select id="category">
-        <option value="all">All</option>
-        <option value="history">History</option>
-        <option value="myth">Myth</option>
-        <option value="mystery">Mystery</option>
-      </select>
-
-      <button id="newStory">Another Story</button>
-    </div>
-
-    <div class="story-card">
-      <h2 id="title">Title here</h2>
-      <p id="text">Story will appear here...</p>
+    <div class="story-card" id="storyCard">
+      <h2>Welcome!</h2>
+      <p>Click the button below to discover a local legend or story from Rwanda. Each story is filled with rich history, mystical elements, and cultural insights that will take you on a fascinating journey through Rwanda's past and folklore.</p>
+      <button id="nextStory">Next Story</button>
     </div>
   </main>
-
-  <footer>
-    <p>Made by Damson</p>
-  </footer>
 
   <script>
     const stories = [
       {
-        title: "The Hill That Glows",
-        text: "People say there is a hill outside town that softly glows at night. Some believe it's minerals in the ground, others think it's something unexplained.",
-        category: "mystery"
+        category: 'history',
+        title: 'The Tale of King Rwabugiri',
+        text: 'King Rwabugiri ruled Rwanda in the late 19th century and was known for unifying the kingdom. He was strategic, wise, and left a legacy of structured governance that influenced the nation for decades. His stories are still told in cultural songs and poems across Rwanda.'
       },
       {
-        title: "The Old Drum Tree",
-        text: "Long ago, villagers used a huge tree as a drum to send messages. Even today, some claim you can hear faint beats at night.",
-        category: "history"
+        category: 'myth',
+        title: 'The Legend of Nyiramacibilli',
+        text: 'Nyiramacibilli was a mystical woman believed to have powers to heal the sick and bless the crops. People would travel from far and wide to seek her guidance. Tales say she could disappear in a puff of smoke and leave behind a trail of fragrant flowers.'
       },
       {
-        title: "The River Spirit",
-        text: "A legend tells of a spirit that protects the river. Fishermen say they must greet the water before casting their nets.",
-        category: "myth"
-      },
-      {
-        title: "The Disappearing Path",
-        text: "There’s a path that seems to vanish when you walk too far. Some say it leads somewhere you’re not meant to go.",
-        category: "mystery"
-      },
-      {
-        title: "The First School Bell",
-        text: "The oldest school bell in the area is said to ring on its own during quiet evenings.",
-        category: "history"
+        category: 'mystery',
+        title: 'The Ghosts of Lake Muhazi',
+        text: 'Lake Muhazi is rumored to be haunted by spirits of old warriors who perished in battle. Fishermen speak of eerie lights and strange sounds at night. Many locals leave offerings by the shore to appease these wandering souls.'
       }
-    ]
+    ];
 
-    const title = document.getElementById("title")
-    const text = document.getElementById("text")
-    const button = document.getElementById("newStory")
-    const category = document.getElementById("category")
+    const storyCard = document.getElementById('storyCard');
+    const nextBtn = document.getElementById('nextStory');
+    const categorySelect = document.getElementById('category');
 
-    function getRandomStory(){
-      let filtered = stories
+    let currentIndex = -1;
 
-      if(category.value !== "all"){
-        filtered = stories.filter(s => s.category === category.value)
-      }
+    function showNextStory() {
+      const selectedCategory = categorySelect.value;
+      const filteredStories = selectedCategory === 'all' ? stories : stories.filter(s => s.category === selectedCategory);
 
-      const random = filtered[Math.floor(Math.random() * filtered.length)]
+      currentIndex = (currentIndex + 1) % filteredStories.length;
+      const story = filteredStories[currentIndex];
 
-      if(random){
-        title.textContent = random.title
-        text.textContent = random.text
-      } else {
-        title.textContent = "No stories found"
-        text.textContent = "Try another category."
-      }
+      storyCard.innerHTML = `
+        <h2>${story.title}</h2>
+        <p>${story.text}</p>
+        <button id="nextStory">Next Story</button>
+      `;
+
+      document.getElementById('nextStory').addEventListener('click', showNextStory);
     }
 
-    button.addEventListener("click", getRandomStory)
-    category.addEventListener("change", getRandomStory)
-
-    getRandomStory()
+    nextBtn.addEventListener('click', showNextStory);
+    categorySelect.addEventListener('change', () => {
+      currentIndex = -1;
+      showNextStory();
+    });
   </script>
-
 </body>
 </html>

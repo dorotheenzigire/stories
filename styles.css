@@ -1,84 +1,100 @@
-* {
+/* Base styles */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #FFF7E6; /* soft pastel background */
+  color: #444;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-  font-family: sans-serif;
-}
-
-body {
-  background: #0f0f0f;
-  color: #ddd;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
 }
 
 header {
   text-align: center;
-  padding: 40px 20px;
+  padding: 40px 20px 20px;
 }
 
 header h1 {
-  font-size: 2rem;
-  margin-bottom: 8px;
+  color: #FF8C42; /* warm orange heading */
+  margin-bottom: 10px;
 }
 
 header p {
-  color: #aaa;
+  color: #555;
+  font-size: 1.1em;
 }
 
-main {
-  flex: 1;
-  padding: 20px;
+/* Filter */
+.filter {
   text-align: center;
+  margin: 20px 0;
 }
 
-.controls {
-  margin-bottom: 20px;
+.filter select {
+  padding: 8px 12px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 1em;
 }
 
-select, button {
-  padding: 10px;
-  margin: 5px;
-  border: none;
-  border-radius: 8px;
-}
-
-select {
-  background: #1e1e1e;
-  color: #ddd;
-}
-
-button {
-  background: #bb86fc;
-  color: #111;
-  cursor: pointer;
-}
-
-button:hover {
-  background: #a873f0;
+/* Story Card */
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
 }
 
 .story-card {
-  background: #1a1a1a;
-  padding: 25px;
-  border-radius: 12px;
-  max-width: 500px;
-  margin: 0 auto;
+  background-color: #FFE9B5; /* muted warm card */
+  padding: 25px 30px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  max-width: 600px;
+  width: 90%;
+  text-align: center;
 }
 
 .story-card h2 {
-  margin-bottom: 10px;
-  color: #bb86fc;
+  color: #FF8C42;
+  margin-bottom: 15px;
 }
 
 .story-card p {
-  color: #ccc;
-  line-height: 1.5;
+  color: #444;
+  font-size: 1.05em;
+  line-height: 1.6;
+  margin-bottom: 20px;
 }
 
-footer {
-  text-align: center;
-  padding: 20px;
-  color: #777;
+.story-card button {
+  background-color: #FFBD00; /* bright yellow button */
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background 0.3s ease;
+}
+
+.story-card button:hover {
+  background-color: #FFA500; /* darker on hover */
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  header h1 {
+    font-size: 1.8em;
+  }
+
+  .story-card {
+    padding: 20px;
+  }
+
+  .story-card p {
+    font-size: 1em;
+  }
+
+  .filter select {
+    width: 80%;
+  }
 }
