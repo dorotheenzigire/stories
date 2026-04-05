@@ -7,12 +7,25 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header>
+  <nav class="navbar">
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#categories">Categories</a></li>
+      <li><a href="#about">About</a></li>
+    </ul>
+  </nav>
+
+  <header id="home">
     <h1>Rwandan Legends & Stories</h1>
     <p>Discover fascinating local tales of history, myths, and mysteries!</p>
   </header>
 
-  <div class="filter">
+  <div class="featured-story">
+    <h2>Featured Legend: The Tale of King Rwabugiri</h2>
+    <p>Explore the story of Rwanda’s wise king who unified the kingdom in the 19th century.</p>
+  </div>
+
+  <div class="filter" id="categories">
     <label for="category">Filter by category:</label>
     <select id="category">
       <option value="all">All</option>
@@ -29,6 +42,22 @@
       <button id="nextStory">Next Story</button>
     </div>
   </main>
+
+  <div class="categories">
+    <button class="category-btn" data-category="history">History</button>
+    <button class="category-btn" data-category="myth">Myth</button>
+    <button class="category-btn" data-category="mystery">Mystery</button>
+  </div>
+
+  <div class="fact-box">
+    <p>"Umugabo w’umukire aruta umutima we." – A Rwandan proverb about wisdom and kindness.</p>
+  </div>
+
+  <button class="back-to-top" onclick="window.scrollTo({top:0, behavior:'smooth'})">↑ Back to Top</button>
+
+  <footer>
+    <p>&copy; 2026 Rwandan Legends by Ntwali Damson</p>
+  </footer>
 
   <script>
     const stories = [
@@ -52,29 +81,34 @@
     const storyCard = document.getElementById('storyCard');
     const nextBtn = document.getElementById('nextStory');
     const categorySelect = document.getElementById('category');
+    const categoryButtons = document.querySelectorAll('.category-btn');
 
     let currentIndex = -1;
 
-    function showNextStory() {
-      const selectedCategory = categorySelect.value;
+    function showNextStory(selectedCategory = 'all') {
       const filteredStories = selectedCategory === 'all' ? stories : stories.filter(s => s.category === selectedCategory);
-
       currentIndex = (currentIndex + 1) % filteredStories.length;
       const story = filteredStories[currentIndex];
-
       storyCard.innerHTML = `
         <h2>${story.title}</h2>
         <p>${story.text}</p>
         <button id="nextStory">Next Story</button>
       `;
-
-      document.getElementById('nextStory').addEventListener('click', showNextStory);
+      document.getElementById('nextStory').addEventListener('click', () => showNextStory(selectedCategory));
     }
 
-    nextBtn.addEventListener('click', showNextStory);
+    nextBtn.addEventListener('click', () => showNextStory(categorySelect.value));
     categorySelect.addEventListener('change', () => {
       currentIndex = -1;
-      showNextStory();
+      showNextStory(categorySelect.value);
+    });
+
+    categoryButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        categorySelect.value = btn.dataset.category;
+        currentIndex = -1;
+        showNextStory(btn.dataset.category);
+      });
     });
   </script>
 </body>
