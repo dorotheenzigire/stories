@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Local Legends</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <h1>Local Legends</h1>
+    <p>Stories, myths and mysteries from around you</p>
+  </header>
+
+  <main>
+    <div class="controls">
+      <select id="category">
+        <option value="all">All</option>
+        <option value="history">History</option>
+        <option value="myth">Myth</option>
+        <option value="mystery">Mystery</option>
+      </select>
+
+      <button id="newStory">Another Story</button>
+    </div>
+
+    <div class="story-card">
+      <h2 id="title">Title here</h2>
+      <p id="text">Story will appear here...</p>
+    </div>
+  </main>
+
+  <footer>
+    <p>Made by Damson</p>
+  </footer>
+
+  <script>
+    const stories = [
+      {
+        title: "The Hill That Glows",
+        text: "People say there is a hill outside town that softly glows at night. Some believe it's minerals in the ground, others think it's something unexplained.",
+        category: "mystery"
+      },
+      {
+        title: "The Old Drum Tree",
+        text: "Long ago, villagers used a huge tree as a drum to send messages. Even today, some claim you can hear faint beats at night.",
+        category: "history"
+      },
+      {
+        title: "The River Spirit",
+        text: "A legend tells of a spirit that protects the river. Fishermen say they must greet the water before casting their nets.",
+        category: "myth"
+      },
+      {
+        title: "The Disappearing Path",
+        text: "There’s a path that seems to vanish when you walk too far. Some say it leads somewhere you’re not meant to go.",
+        category: "mystery"
+      },
+      {
+        title: "The First School Bell",
+        text: "The oldest school bell in the area is said to ring on its own during quiet evenings.",
+        category: "history"
+      }
+    ]
+
+    const title = document.getElementById("title")
+    const text = document.getElementById("text")
+    const button = document.getElementById("newStory")
+    const category = document.getElementById("category")
+
+    function getRandomStory(){
+      let filtered = stories
+
+      if(category.value !== "all"){
+        filtered = stories.filter(s => s.category === category.value)
+      }
+
+      const random = filtered[Math.floor(Math.random() * filtered.length)]
+
+      if(random){
+        title.textContent = random.title
+        text.textContent = random.text
+      } else {
+        title.textContent = "No stories found"
+        text.textContent = "Try another category."
+      }
+    }
+
+    button.addEventListener("click", getRandomStory)
+    category.addEventListener("change", getRandomStory)
+
+    getRandomStory()
+  </script>
+
+</body>
+</html>
